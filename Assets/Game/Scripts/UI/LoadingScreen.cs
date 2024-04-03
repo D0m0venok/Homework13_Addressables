@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -19,8 +21,13 @@ namespace SampleGame
 
         private async void Awake()
         {
-            await _menuScreenLoader.LoadAsync();
-            await _pauseScreenLoader.LoadAsync();
+            var tasks = new List<UniTask>
+            {
+                _menuScreenLoader.LoadAsync(),
+                _pauseScreenLoader.LoadAsync()
+            };
+
+            await UniTask.WhenAll(tasks);
             _menuLoader.LoadMenu().Forget();
         }
     }
