@@ -19,8 +19,8 @@ namespace SampleGame
         {
             if(_locations.ContainsKey(locationNumber))
                 return;
-            
-            await Addressables.InstantiateAsync($"Locations/Location{locationNumber}.prefab", _parent);
+            var location = await Addressables.InstantiateAsync($"Locations/Location{locationNumber}.prefab", _parent);
+            _locations[locationNumber] = location;
         }
 
         public void Unload()

@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 
@@ -72,6 +73,10 @@ namespace SampleGame
             var pauseScreen = Container.InstantiatePrefab(prefab, _screenParent);
             pauseScreen.SetActive(false);
             Container.BindInstance(pauseScreen.GetComponent<PauseScreen>());
+        }
+        private void OnDestroy()
+        {
+            Container.Resolve<GameLoader>().UnloadGame();
         }
     }
 }
